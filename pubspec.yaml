@@ -30,6 +30,7 @@ dependencies:
   flutter_easyloading: ^3.0.5
   firebase_messaging: ^15.2.5
   cached_network_image: ^3.4.1
+  firebase_crashlytics: ^4.3.9
   dio_cache_interceptor: ^3.5.1
   flutter_local_notifications: ^19.0.0
   dio_cache_interceptor_hive_store: ^4.0.0

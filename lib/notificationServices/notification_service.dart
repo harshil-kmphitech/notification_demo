@@ -17,7 +17,7 @@ import '../app/ui/pages/notification_screen.dart';
 ///
 
 class NotificationService {
-  void initialize() async {
+  Future<void> initialize() async {
     try {
       FirebaseMessaging.onBackgroundMessage(NotificationService.backgroundHandler);
     } catch (e) {
@@ -32,7 +32,7 @@ class NotificationService {
   final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  final AndroidInitializationSettings initializationSettingsAndroid = const AndroidInitializationSettings('@drawable/ic_stat_name');
+  final AndroidInitializationSettings initializationSettingsAndroid = const AndroidInitializationSettings('ic_stat_name');
 
   final DarwinInitializationSettings initializationSettingsIOS = const DarwinInitializationSettings();
 
@@ -81,7 +81,7 @@ class NotificationService {
     final initialMessage = await firebaseMessaging.getInitialMessage();
     if (initialMessage != null) {
       'App launched via notification: ${initialMessage.data}'.log;
-      // _handleNavigation();
+      _handleNavigation();
     }
 
     await firebaseMessaging.setForegroundNotificationPresentationOptions(alert: true, badge: true, sound: true);
@@ -108,7 +108,7 @@ class NotificationService {
               channel.name,
               channelDescription: channel.description,
               playSound: true,
-              icon: '@drawable/ic_stat_name',
+              icon: 'ic_stat_name',
               color: const Color(0xFFFF5500),
               colorized: false,
               styleInformation: BigPictureStyleInformation(

@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -23,11 +24,11 @@ void configuration({required Widget myApp}) {
       await getIt.init();
 
       unawaited(SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]));
-      // await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
-      // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+      await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
+      FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
       PlatformDispatcher.instance.onError = (error, stack) {
         log(error.toString(), stackTrace: stack);
-        // FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+        FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
         return true;
       };
 
@@ -44,12 +45,12 @@ void configuration({required Widget myApp}) {
     },
         (error, stackTrace) {
       log(error.toString(), stackTrace: stackTrace);
-      // FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true)
+      FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
     },
     zoneSpecification: ZoneSpecification(
       handleUncaughtError: (Zone zone, ZoneDelegate delegate, Zone parent, Object error, StackTrace stackTrace) {
         log(error.toString(), stackTrace: stackTrace);
-        // FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
+        FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
       },
     ),
   );

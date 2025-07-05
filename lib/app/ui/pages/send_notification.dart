@@ -26,7 +26,8 @@ class _SendNotificationState extends State<SendNotification> {
     await FirebaseMessaging.instance.requestPermission();
   }
 
-  void pushNotificationApi({required bool isImage}) {
+  Future<void> pushNotificationApi({required bool isImage}) async {
+    if(NotificationDevice.deviceToken?.isEmpty ?? true) await NotificationService().getFirebaseTokenAndSave();
     getIt<PushNotification>()
         .pushNotification(deviceToken: NotificationDevice.deviceToken ?? '', isImage: isImage)
         .handler(null, onSuccess: (value) async {}, onFailed: (value) => value.showToast());

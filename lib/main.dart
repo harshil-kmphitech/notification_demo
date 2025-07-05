@@ -32,6 +32,7 @@ class _MyAppState extends State<MyApp> {
         supportedLocales: AppLocalizations.supportedLocales,
         locale: Locale(getIt<SharedPreferences>().getAppLocal ?? 'ru'),
         localizationsDelegates: AppLocalizations.localizationsDelegates,
+
         ///Default Theme
         themeMode: ThemeMode.light,
         builder: EasyLoading.init(),
@@ -50,7 +51,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () => Get.offAll(() => const SendNotification()));
     _initializeApp();
     super.initState();
   }
@@ -63,8 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
       'Firebase initialization failed: $e'.log;
       return;
     }
-
-    NotificationService().initialize();
+    Future.delayed(const Duration(seconds: 3), () async {
+      Get.offAll(() => const SendNotification());
+      await NotificationService().initialize();
+    });
   }
 
   @override
