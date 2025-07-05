@@ -1,27 +1,42 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:notification_demo/logger.dart';
-import 'package:notification_demo/send_notification.dart';
+import 'package:notification_demo/app/ui/pages/send_notification.dart';
+import 'package:notification_demo/app/utils/helpers/extensions/extensions.dart';
+import 'package:notification_demo/app/utils/helpers/logger.dart';
+import 'package:notification_demo/notificationServices/notification_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'notificationClass/notification_class.dart';
-import 'notificationClass/onesignual.dart';
+import 'app/utils/helpers/injectable/injectable.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
-  await OneSignalHelper.instance.initialize();
-}
+void main() => configuration(myApp: const MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(title: 'Notification Demo', theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)), home: const MyHomePage());
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+      child: GetMaterialApp(
+        home: const MyHomePage(),
+        title: 'Notification Demo',
+        debugShowCheckedModeBanner: false,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: Locale(getIt<SharedPreferences>().getAppLocal ?? 'ru'),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        ///Default Theme
+        themeMode: ThemeMode.light,
+        builder: EasyLoading.init(),
+      ),
+    );
   }
 }
 

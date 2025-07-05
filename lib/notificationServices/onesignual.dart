@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
-import '../notification_screen.dart';
+import '../app/ui/pages/notification_screen.dart';
 
 class OneSignalHelper {
   OneSignalHelper._();
