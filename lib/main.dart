@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:notification_demo/app/ui/pages/send_notification.dart';
 import 'package:notification_demo/app/utils/helpers/extensions/extensions.dart';
 import 'package:notification_demo/app/utils/helpers/logger.dart';
+import 'package:notification_demo/l10n/app_localizations.dart';
 import 'package:notification_demo/notificationServices/notification_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'app/utils/helpers/injectable/injectable.dart';
 

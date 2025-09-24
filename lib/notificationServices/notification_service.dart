@@ -147,7 +147,7 @@ class NotificationService {
           notification.title,
           notification.body,
           NotificationDetails(android: androidDetails),
-          payload: notification.title,
+          payload: notification.body,
         );
       }
     });
